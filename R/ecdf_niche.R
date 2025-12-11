@@ -18,6 +18,16 @@
 #'   \item ecdf_suits: numeric vector, 1 - ECDF(Mahalanobis).
 #'   \item mahal_dists: numeric vector of Mahalanobis distances.
 #' }
+#'
+#' @examples
+#' # Create ECDF-niche based on personalized options:
+#' ecdf_niche <- ecdf_niche(n = 3,
+#'                          n_population = 20000,
+#'                          sample_sizes = seq(50, 1000, 50),
+#'                          seed = 123)
+#'
+#' @global Sample_Size Correlation Method
+#'
 #' @export
 ecdf_niche <- function(
     n,

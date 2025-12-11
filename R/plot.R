@@ -2,6 +2,20 @@
 #'
 #' @param analysis_results List returned by \code{ecdf_niche()}.
 #' @return A ggplot object.
+#'
+#' @examples
+#' # Create ECDF-niche based on personalized options:
+#' ecdf_niche <- ecdf_niche(n = 3,
+#'                          n_population = 20000,
+#'                          sample_sizes = seq(50, 1000, 50),
+#'                          seed = 123)
+#'
+#' # Plot analysis results
+#' create_distance_suitability_plot(ecdf_niche)
+#'
+#'
+#' @global Mahalanobis_Distance Niche_Suitability ChiSquared_suitability ECDF_suitability
+#'
 #' @export
 create_distance_suitability_plot <- function(analysis_results) {
   plot_data <- data.frame(
@@ -47,7 +61,7 @@ create_distance_suitability_plot <- function(analysis_results) {
 #' Run full ECDF–Mahalanobis analysis
 #'
 #' Convenience function that reproduces the three figures from the original
-#' script for 1–5 dimensions.
+#' manuscript for 1–5 dimensions.
 #'
 #' @param dims Integer vector of dimensions (default 1:5).
 #' @param seed Optional seed for reproducibility.
@@ -57,6 +71,14 @@ create_distance_suitability_plot <- function(analysis_results) {
 #'   \item analyses: list of ecdf_niche() outputs.
 #'   \item figure1, figure2, figure3: grobs with arranged plots.
 #' }
+#'
+#' @global Variable_1 Variable_2 Niche_suitability ChiSquared_suitability ECDF_suitability
+#'
+#' @examples
+#' # Recreate original manuscript output:
+#' set.seed(3)
+#' full_res <- run_ecdf_mahal_analysis(dims = 1:5)
+#'
 #' @export
 run_ecdf_mahal_analysis <- function(dims = 1:5, seed = 3L) {
   if (!is.null(seed)) set.seed(seed)

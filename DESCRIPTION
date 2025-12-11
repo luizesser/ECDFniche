@@ -1,11 +1,36 @@
 Package: ECDFniche
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Type: Package
+Title: ECDF and Mahalanobis Distance Niche Modeling Tools
+Version: 0.1.0
+Authors@R: c(
+    person("Dayani", "Bailly", role = "aut",
+           comment = c(ORCID = "0000-0002-6954-9902")),
+    person("Marcos", "R. Lima", role = "aut",
+           comment = c(ORCID = "0000-0002-5901-0911")),
+    person("Reginaldo", "Ré", role = "aut",
+           comment = c(ORCID = "0000-0001-6452-3466")),
+    person("Luíz Fernando", "Esser", , "luizesser@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0003-2982-7223")))
+Description: Functions to simulate ecological niche models using Mahalanobis
+    distance, transform distances to suitability with 1 - ECDF and
+    1 - chi-squared, and generate comparison figures.
+License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
+    "roxyglobals::global_roclet"))
 RoxygenNote: 7.3.3
+Depends: R (>= 4.0.0)
+Imports:
+    ggplot2,
+    lemon,
+    MASS,
+    stats
+Suggests:
+    knitr,
+    rmarkdown,
+    roxyglobals,
+    tictoc
+LazyData: true
+VignetteBuilder: knitr
+Config/roxyglobals/filename: globals.R
+Config/roxyglobals/unique: FALSE
