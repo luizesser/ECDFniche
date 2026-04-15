@@ -7,7 +7,7 @@
 create_distance_suitability_plot(analysis_results)
 }
 \arguments{
-\item{analysis_results}{List returned by \code{ecdf_niche()}.}
+\item{analysis_results}{List returned by \code{ecdf_theoretical_niche()}.}
 }
 \value{
 A ggplot object.
@@ -17,13 +17,12 @@ Create distance–suitability plot
 }
 \examples{
 # Create ECDF-niche based on personalized options:
-ecdf_niche <- ecdf_niche(n = 3,
-                         n_population = 20000,
-                         sample_sizes = seq(50, 1000, 50),
-                         seed = 123)
+res <- ecdf_theoretical_niche(n = 3,
+                              n_population = 20000,
+                              sample_sizes = seq(50, 1000, 50),
+                              seed = 123)
 
 # Plot analysis results
-create_distance_suitability_plot(ecdf_niche)
-
+create_distance_suitability_plot(res)
 
 }

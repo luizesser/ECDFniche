@@ -19,22 +19,37 @@
 #'   \item mahal_dists: numeric vector of Mahalanobis distances.
 #' }
 #'
+#' @author Luíz Fernando Esser
+#'
 #' @examples
 #' # Create ECDF-niche based on personalized options:
-#' ecdf_niche <- ecdf_niche(n = 3,
-#'                          n_population = 20000,
-#'                          sample_sizes = seq(50, 1000, 50),
-#'                          seed = 123)
+#' n <- ecdf_theoretical_niche(n = 3,
+#'                             n_population = 20000,
+#'                             sample_sizes = seq(50, 1000, 50),
+#'                             seed = 123)
 #'
-#' @global Sample_Size Correlation Method
+#' @importFrom MASS mvrnorm
+#' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_colour_manual theme element_blank
+#'             ylim
+#' @importFrom stats pchisq ecdf cor mahalanobis cov
+#' @import checkCLI
+#'
+#' @global .data
 #'
 #' @export
-ecdf_niche <- function(
+ecdf_theoretical_niche <- function(
     n,
     n_population = 10000L,
     sample_sizes = seq(20L, 500L, 20L),
-    seed = NULL
-) {
+    seed = NULL) {
+
+  # Assertions
+  assert_numeric_cli(n, len = 1, lower = 1)
+  assert_numeric_cli(n_population, len = 1, lower = 1)
+  assert_vector_cli(sample_sizes, min.len = 1, unique = TRUE)
+  assert_numeric_cli(sample_sizes, lower = 1L, null.ok = TRUE)
+  assert_numeric_cli(seed, lower = 0, null.ok = TRUE)
+
   if (!is.null(seed)) {
     set.seed(seed)
   }
@@ -103,7 +118,7 @@ ecdf_niche <- function(
   correlation_plot <- ggplot2::ggplot(data = plot_data) +
     ggplot2::theme_bw() +
     ggplot2::geom_line(
-      ggplot2::aes(x = Sample_Size, y = Correlation, colour = Method),
+      ggplot2::aes(x = .data$Sample_Size, y = .data$Correlation, colour = .data$Method),
       linewidth = 1.0,
       stat = "identity"
     ) +

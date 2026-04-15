@@ -14,7 +14,7 @@ run_ecdf_mahal_analysis(dims = 1:5, seed = 3L)
 \value{
 A list containing:
 \itemize{
-\item analyses: list of ecdf_niche() outputs.
+\item analyses: list of ecdf_theoretical_niche() outputs.
 \item figure1, figure2, figure3: grobs with arranged plots.
 }
 }

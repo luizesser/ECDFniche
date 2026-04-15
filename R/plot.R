@@ -1,23 +1,38 @@
 #' Create distance–suitability plot
 #'
-#' @param analysis_results List returned by \code{ecdf_niche()}.
+#' @param analysis_results List returned by \code{ecdf_theoretical_niche()}.
 #' @return A ggplot object.
 #'
 #' @examples
 #' # Create ECDF-niche based on personalized options:
-#' ecdf_niche <- ecdf_niche(n = 3,
-#'                          n_population = 20000,
-#'                          sample_sizes = seq(50, 1000, 50),
-#'                          seed = 123)
+#' res <- ecdf_theoretical_niche(n = 3,
+#'                               n_population = 20000,
+#'                               sample_sizes = seq(50, 1000, 50),
+#'                               seed = 123)
 #'
 #' # Plot analysis results
-#' create_distance_suitability_plot(ecdf_niche)
+#' create_distance_suitability_plot(res)
 #'
+#' @importFrom ggplot2 ggplot aes geom_point geom_line scale_colour_manual theme_classic labs theme element_text
+#' @importFrom stats pchisq ecdf
+#' @import checkCLI
 #'
-#' @global Mahalanobis_Distance Niche_Suitability ChiSquared_suitability ECDF_suitability
+#' @global .data
 #'
 #' @export
 create_distance_suitability_plot <- function(analysis_results) {
+  # Assertions
+  assert_list_cli(analysis_results, len = 6)
+  assert_names_cli(names(analysis_results), must.include = c("corplot", "sample_data",
+                                                      "sample_niche", "chisq_suits",
+                                                      "ecdf_suits", "mahal_dists"))
+  assert_class_cli(analysis_results$corplot, classes = "ggplot")
+  assert_matrix_cli(analysis_results$sample_data)
+  assert_numeric_cli(analysis_results$sample_niche, lower = 0, upper = 1)
+  assert_numeric_cli(analysis_results$chisq_suits, lower = 0, upper = 1)
+  assert_numeric_cli(analysis_results$ecdf_suits, lower = 0, upper = 1)
+  assert_numeric_cli(analysis_results$mahal_dists, lower = 0)
+
   plot_data <- data.frame(
     Mahalanobis_Distance   = analysis_results$mahal_dists,
     Niche_Suitability      = analysis_results$sample_niche,
@@ -25,17 +40,17 @@ create_distance_suitability_plot <- function(analysis_results) {
     ECDF_suitability       = analysis_results$ecdf_suits
   )
 
-  ggplot2::ggplot(plot_data, ggplot2::aes(x = Mahalanobis_Distance)) +
+  ggplot2::ggplot(plot_data, ggplot2::aes(x = .data$Mahalanobis_Distance)) +
     ggplot2::geom_point(
-      ggplot2::aes(y = Niche_Suitability, color = "Niche Records"),
+      ggplot2::aes(y = .data$Niche_Suitability, color = "Niche Records"),
       shape = 21, size = 3
     ) +
     ggplot2::geom_line(
-      ggplot2::aes(y = ChiSquared_suitability, color = "1 - Chi-squared"),
+      ggplot2::aes(y = .data$ChiSquared_suitability, color = "1 - Chi-squared"),
       linewidth = 1
     ) +
     ggplot2::geom_line(
-      ggplot2::aes(y = ECDF_suitability, color = "1 - ECDF"),
+      ggplot2::aes(y = .data$ECDF_suitability, color = "1 - ECDF"),
       linewidth = 1
     ) +
     ggplot2::scale_colour_manual(
@@ -68,22 +83,31 @@ create_distance_suitability_plot <- function(analysis_results) {
 #'
 #' @return A list containing:
 #' \itemize{
-#'   \item analyses: list of ecdf_niche() outputs.
+#'   \item analyses: list of ecdf_theoretical_niche() outputs.
 #'   \item figure1, figure2, figure3: grobs with arranged plots.
 #' }
-#'
-#' @global Variable_1 Variable_2 Niche_suitability ChiSquared_suitability ECDF_suitability
 #'
 #' @examples
 #' # Recreate original manuscript output:
 #' set.seed(3)
 #' full_res <- run_ecdf_mahal_analysis(dims = 1:5)
 #'
+#' @importFrom ggplot2 ggplot aes geom_point labs scale_colour_viridis_c theme_classic theme element_blank
+#' @importFrom lemon grid_arrange_shared_legend
+#' @import checkCLI
+#'
+#' @global .data
+#'
 #' @export
 run_ecdf_mahal_analysis <- function(dims = 1:5, seed = 3L) {
+  # Assertions
+  assert_vector_cli(dims, min.len = 1, unique = TRUE)
+  assert_numeric_cli(dims, lower = 1)
+  assert_numeric_cli(seed, lower = 0, null.ok = TRUE)
+
   if (!is.null(seed)) set.seed(seed)
 
-  analyses <- lapply(dims, function(d) ecdf_niche(d, seed = seed))
+  analyses <- lapply(dims, function(d) ecdf_theoretical_niche(d, seed = seed))
 
   vars1 <- analyses[[1L]]
   vars2 <- analyses[[2L]]
@@ -104,8 +128,8 @@ run_ecdf_mahal_analysis <- function(dims = 1:5, seed = 3L) {
     ggplot2::theme(legend.position = "none")
 
   plot_niche <- ggplot2::ggplot(spatial_data,
-                                ggplot2::aes(x = Variable_1, y = Variable_2)) +
-    ggplot2::geom_point(ggplot2::aes(color = Niche_suitability), size = 3) +
+                                ggplot2::aes(x = .data$Variable_1, y = .data$Variable_2)) +
+    ggplot2::geom_point(ggplot2::aes(color = .data$Niche_suitability), size = 3) +
     ggplot2::labs(
       x = "",
       y = "Variable 2",
@@ -116,9 +140,9 @@ run_ecdf_mahal_analysis <- function(dims = 1:5, seed = 3L) {
     common_theme
 
   plot_chisq <- ggplot2::ggplot(spatial_data,
-                                ggplot2::aes(x = Variable_1, y = Variable_2)) +
+                                ggplot2::aes(x = .data$Variable_1, y = .data$Variable_2)) +
     ggplot2::geom_point(
-      ggplot2::aes(color = ChiSquared_suitability), size = 3
+      ggplot2::aes(color = .data$ChiSquared_suitability), size = 3
     ) +
     ggplot2::labs(
       x = "Variable 1",
@@ -129,9 +153,9 @@ run_ecdf_mahal_analysis <- function(dims = 1:5, seed = 3L) {
     common_theme
 
   plot_ecdf <- ggplot2::ggplot(spatial_data,
-                               ggplot2::aes(x = Variable_1, y = Variable_2)) +
+                               ggplot2::aes(x = .data$Variable_1, y = .data$Variable_2)) +
     ggplot2::geom_point(
-      ggplot2::aes(color = ECDF_suitability), size = 3
+      ggplot2::aes(color = .data$ECDF_suitability), size = 3
     ) +
     ggplot2::labs(
       x = "",

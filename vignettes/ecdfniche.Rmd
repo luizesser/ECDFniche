@@ -1,5 +1,5 @@
 ---
-title: "ECDF and Mahalanobis Distance for Niche Modeling"
+title: "ECDF and Mahalanobis Distance for Theoretical Niche Modeling"
 author: "Luíz Fernando Esser"
 output: rmarkdown::html_vignette
 vignette: >
@@ -25,17 +25,17 @@ This vignette shows how to use the **ECDFniche** package to reproduce the simula
 library(ECDFniche)
 ```
 
-## Core simulation: `ecdf_niche()`
+## Core simulation: `ecdf_theoretical_niche()`
 
-The function `ecdf_niche()` simulates a multivariate normal "environmental space", computes Mahalanobis distances for a sample of points, and then maps those distances to suitability using:
+The function `ecdf_theoretical_niche()` simulates a multivariate normal "environmental space", computes Mahalanobis distances for a sample of points, and then maps those distances to suitability using:
 
 - \(1 - F_{\chi^2}(D^2)\) (theoretical chi-squared transformation)
 - \(1 - \text{ECDF}(D^2)\) (empirical transformation)
 
 ```{r}
 set.seed(3)
-res1 <- ecdf_niche(n = 2)
-res1
+res1 <- ecdf_theoretical_niche(n = 2)
+res1$corplot
 ```
 
 The returned list contains:
@@ -54,7 +54,7 @@ res1$corplot
 
 ## Reproducing the full analysis
 
-The convenience function `run_ecdf_mahal_analysis()` wraps the original workflow: it runs `ecdf_niche()` for several dimensions (by default 1 to 5) and produces three figures analogous to those in the script.
+The convenience function `run_ecdf_mahal_analysis()` wraps the original workflow: it runs `ecdf_theoretical_niche()` for several dimensions (by default 1 to 5) and produces three figures analogous to those in the script.
 
 ```{r}
 set.seed(3)
@@ -92,10 +92,10 @@ full_res$figure3 |> plot()
 ## Customizing simulations
 
 You can customize key aspects of the simulation by passing arguments to
-`ecdf_niche()`:
+`ecdf_theoretical_niche()`:
 
 ```{r}
-res_custom <- ecdf_niche(
+res_custom <- ecdf_theoretical_niche(
 n = 3,
 n_population = 20000,
 sample_sizes = seq(50, 1000, 50),
