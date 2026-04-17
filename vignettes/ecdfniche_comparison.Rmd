@@ -110,10 +110,10 @@ nonnormal_res <- ecdf_nonnormal_niche(
   n_vals   = c(20L, 50L, 100L, 200L, 500L),
   n_reps   = 10L,
   N_ref    = 1e5,
-  mu_temp = 20,
-  sd_temp = 5,
-  shape_precip = 2,
-  scale_precip = 10
+  temp_function = "qnorm",
+  temp_parameters = list(mean = 20, sd = 5),
+  prec_function = "qweibull",
+  prec_parameters = list(shape = 2, scale = 10)
 )
 ```
 
@@ -156,6 +156,10 @@ res_custom_nonnorm <- ecdf_nonnormal_niche(
   n_vals   = c(30L, 100L, 300L),
   n_reps   = 20L,
   N_ref    = 5e4,
+  temp_function = "qnorm",
+  temp_parameters = list(mean = 20, sd = 5),
+  prec_function = "qweibull",
+  prec_parameters = list(shape = 2, scale = 10),
   seed     = 123
 )
 res_custom_nonnorm$suit_plot

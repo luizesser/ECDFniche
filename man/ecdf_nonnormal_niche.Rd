@@ -9,10 +9,10 @@ ecdf_nonnormal_niche(
   n_vals = c(20L, 50L, 100L, 200L, 500L),
   n_reps = 10L,
   N_ref = 1e+05,
-  shape_precip = NULL,
-  scale_precip = NULL,
-  mu_temp = NULL,
-  sd_temp = NULL,
+  temp_function = "qnorm",
+  temp_parameters = list(mean = 20, sd = 5),
+  prec_function = "qweibull",
+  prec_parameters = list(shape = 2, scale = 10),
   seed = NULL
 )
 }
@@ -25,13 +25,15 @@ ecdf_nonnormal_niche(
 
 \item{N_ref}{Integer; size of reference population for "true" parameters.}
 
-\item{shape_precip}{Numeric; shape of the Weibull Distribution to obtain precipitation values.}
+\item{temp_function}{Character; function used to model temperature values. One of: "qnorm" or
+"qweibull".}
 
-\item{scale_precip}{Numeric; scale of the Weibull Distribution to obtain precipitation values.}
+\item{temp_parameters}{List; list organizing parameters to pass to \code{temp_function}.}
 
-\item{mu_temp}{Numeric; mean value to obtain normally distributed temperature values.}
+\item{prec_function}{Character; function used to model precipitation values. One of: "qnorm" or
+"qweibull".}
 
-\item{sd_temp}{Numeric; standard deviation to obtain normally distributed temperature values.}
+\item{prec_parameters}{List; list organizing parameters to pass to \code{temp_function}.}
 
 \item{seed}{Optional integer for reproducibility.}
 }
@@ -55,6 +57,11 @@ in milimeters by Wilks (1989) - Journal of Applied Meteorology.
 Because the relationship between temperature and precipitation is complex
 across space (Rodrigo, 2022 - Theoretical and Applied Climatology), we
 defined five correlation values between the two variables.
+
+\code{temp_parameters} and \code{prec_parameters} must comply to \code{stats::qnorm} or
+\code{stats::qweibull}, depending on the function chosen on \code{temp_function} and
+\code{prec_function}. For \code{"qnorm"}, user can specify \code{mean} and \code{sd}, while
+for \code{"qweibull"}
 }
 \details{
 Simulates bivariate environmental data using Gaussian copulas with

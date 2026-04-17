@@ -8,11 +8,13 @@
 #' @param n_vals Integer vector; sample sizes.
 #' @param n_reps Integer; number of replicates.
 #' @param N_ref Integer; size of reference population for "true" parameters.
+#' @param temp_function Character; function used to model temperature values. One of: "qnorm" or
+#' "qweibull".
+#' @param prec_function Character; function used to model precipitation values. One of: "qnorm" or
+#' "qweibull".
+#' @param temp_parameters  List; list organizing parameters to pass to \code{temp_function}.
+#' @param prec_parameters List; list organizing parameters to pass to \code{temp_function}.
 #' @param seed Optional integer for reproducibility.
-#' @param mu_temp  Numeric; mean value to obtain normally distributed temperature values.
-#' @param sd_temp  Numeric; standard deviation to obtain normally distributed temperature values.
-#' @param shape_precip Numeric; shape of the Weibull Distribution to obtain precipitation values.
-#' @param scale_precip  Numeric; scale of the Weibull Distribution to obtain precipitation values.
 #'
 #' @description
 #' Script to run a simulation study to compare Chi-square vs. ECDF approaches
@@ -26,6 +28,11 @@
 #' Because the relationship between temperature and precipitation is complex
 #' across space (Rodrigo, 2022 - Theoretical and Applied Climatology), we
 #' defined five correlation values between the two variables.
+#'
+#' \code{temp_parameters} and \code{prec_parameters} must comply to \code{stats::qnorm} or
+#' \code{stats::qweibull}, depending on the function chosen on \code{temp_function} and
+#' \code{prec_function}. For \code{"qnorm"}, user can specify \code{mean} and \code{sd}, while
+#' for \code{"qweibull"}
 #'
 #' @return A list with:
 #' \itemize{
@@ -62,10 +69,10 @@ ecdf_nonnormal_niche <- function(
     n_vals   = c(20L, 50L, 100L, 200L, 500L),
     n_reps   = 10L,
     N_ref    = 1e5,
-    shape_precip = NULL,
-    scale_precip = NULL,
-    mu_temp = NULL,
-    sd_temp = NULL,
+    temp_function = "qnorm",
+    temp_parameters = list(mean = 20, sd = 5),
+    prec_function = "qweibull",
+    prec_parameters = list(shape = 2, scale = 10),
     seed     = NULL) {
 
   # Assertions
@@ -77,10 +84,37 @@ ecdf_nonnormal_niche <- function(
   assert_numeric_cli(N_ref, lower = 1L, null.ok = TRUE)
   assert_numeric_cli(seed, lower = 0, null.ok = TRUE)
 
-  assert_numeric_cli(mu_temp, len = 1, null.ok = TRUE)
-  assert_numeric_cli(sd_temp, len = 1, null.ok = TRUE)
-  assert_numeric_cli(shape_precip, len = 1, null.ok = TRUE)
-  assert_numeric_cli(scale_precip, len = 1, null.ok = TRUE)
+  assert_subset_cli(temp_function, c("qnorm", "qweibull"), empty.ok = FALSE)
+  if(temp_function == "qnorm")    {tpars <- c("mean", "sd")}
+  if(temp_function == "qweibull") {tpars <- c("shape", "scale")}
+  assert_list_cli(temp_parameters, names = "strict",
+                  unique = TRUE, len = 2, null.ok = FALSE,
+                  any.missing = FALSE, all.missing = FALSE)
+  assert_subset_cli(names(temp_parameters), tpars)
+  if(temp_function == "qnorm") {
+    assert_numeric_cli(temp_parameters$mean, len = 1)
+    assert_numeric_cli(temp_parameters$sd, len = 1)
+  }
+  if(temp_function == "qweibull") {
+    assert_numeric_cli(temp_parameters$shape, len = 1)
+    assert_numeric_cli(temp_parameters$scale, len = 1)
+  }
+
+  assert_subset_cli(prec_function, c("qnorm", "qweibull"),  empty.ok = FALSE)
+  if(prec_function == "qnorm")    {ppars <- c("mean", "sd")}
+  if(prec_function == "qweibull") {ppars <- c("shape", "scale")}
+  assert_list_cli(prec_parameters, names = "strict",
+                  unique = TRUE, len = 2, null.ok = FALSE,
+                  any.missing = FALSE, all.missing = FALSE)
+  assert_subset_cli(names(prec_parameters), ppars)
+  if(prec_function == "qnorm") {
+    assert_numeric_cli(prec_parameters$mean, len = 1)
+    assert_numeric_cli(prec_parameters$sd, len = 1)
+  }
+  if(prec_function == "qweibull") {
+    assert_numeric_cli(prec_parameters$shape, len = 1)
+    assert_numeric_cli(prec_parameters$scale, len = 1)
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)
@@ -91,12 +125,12 @@ ecdf_nonnormal_niche <- function(
   # ------------------------------------------------------------------------------
   ## Marginals
   # Temperature ~ Normal(mean = 20, sd = 5)
-  mu_temp <- ifelse(is.null(mu_temp), 20, mu_temp)
-  sd_temp <- ifelse(is.null(sd_temp), 5,  sd_temp)
-
-  # Precipitation ~ Weibull(shape = 2, scale = 10)
-  shape_precip <- ifelse(is.null(shape_precip), 2,  shape_precip)
-  scale_precip <- ifelse(is.null(scale_precip), 10, scale_precip)
+#  mu_temp <- ifelse(is.null(mu_temp), 20, mu_temp)
+#  sd_temp <- ifelse(is.null(sd_temp), 5,  sd_temp)
+#
+#  # Precipitation ~ Weibull(shape = 2, scale = 10)
+#  shape_precip <- ifelse(is.null(shape_precip), 2,  shape_precip)
+#  scale_precip <- ifelse(is.null(scale_precip), 10, scale_precip)
 
   # ------------------------------------------------------------------------------
   # 2. Generate a huge reference sample to obtain the 'true' population parameters
@@ -119,8 +153,17 @@ ecdf_nonnormal_niche <- function(
     u_ref <- stats::pnorm(z_ref)
 
     # Transform the copula into marginal distributions
-    temp_ref   <- stats::qnorm(u_ref[,1], mean = mu_temp, sd = sd_temp)
-    precip_ref <- stats::qweibull(u_ref[,2], shape = shape_precip, scale = scale_precip)
+    if (temp_function == "qnorm") {
+      temp_ref <- stats::qnorm(u_ref[,1], mean = temp_parameters$mean, sd = temp_parameters$sd) # generate marginal temperature
+    } else if (temp_function == "qweibull") {
+      temp_ref <- stats::qweibull(u_ref[,1], shape = temp_parameters$shape, scale = temp_parameters$scale) # generate marginal precipitation
+    }
+
+    if (prec_function == "qnorm") {
+      precip_ref <- stats::qnorm(u_ref[,2], mean = prec_parameters$mean, sd = prec_parameters$sd) # generate marginal temperature
+    } else if (prec_function == "qweibull") {
+      precip_ref <- stats::qweibull(u_ref[,2], shape = prec_parameters$shape, scale = prec_parameters$scale) # generate marginal precipitation
+    }
 
     X_ref <- cbind(temp_ref, precip_ref)
 
@@ -162,8 +205,17 @@ ecdf_nonnormal_niche <- function(
         z <- MASS::mvrnorm(n, mu = c(0, 0), Sigma = Sigma_cop) # generate bivariate normal data for copula
         u <- stats::pnorm(z) # convert bivariate normal into cumulative distirbution
 
-        temp   <- stats::qnorm(u[,1], mean = mu_temp, sd = sd_temp) # generate marginal temperature
-        precip <- stats::qweibull(u[,2], shape = shape_precip, scale = scale_precip) # generate marginal precipitation
+        if (temp_function == "qnorm") {
+          temp <- stats::qnorm(u[,1], mean = temp_parameters$mean, sd = temp_parameters$sd) # generate marginal temperature
+        } else if (temp_function == "qweibull") {
+          temp <- stats::qweibull(u[,1], shape = temp_parameters$shape, scale = temp_parameters$scale) # generate marginal precipitation
+        }
+
+        if (prec_function == "qnorm") {
+          precip <- stats::qnorm(u[,2], mean = prec_parameters$mean, sd = prec_parameters$sd) # generate marginal temperature
+        } else if (prec_function == "qweibull") {
+          precip <- stats::qweibull(u[,2], shape = prec_parameters$shape, scale = prec_parameters$scale) # generate marginal precipitation
+        }
 
         X <- cbind(temp, precip) # combine into data frame
 
