@@ -13,6 +13,12 @@ precipitation is complex across space (Rodrigo, 2022 - Theoretical and
 Applied Climatology), we defined five correlation values between the two
 variables.
 
+`temp_parameters` and `prec_parameters` must comply to
+[`stats::qnorm`](https://rdrr.io/r/stats/Normal.html) or
+[`stats::qweibull`](https://rdrr.io/r/stats/Weibull.html), depending on
+the function chosen on `temp_function` and `prec_function`. For
+`"qnorm"`, user can specify `mean` and `sd`, while for `"qweibull"`
+
 ## Usage
 
 ``` r
@@ -21,10 +27,10 @@ ecdf_nonnormal_niche(
   n_vals = c(20L, 50L, 100L, 200L, 500L),
   n_reps = 10L,
   N_ref = 1e+05,
-  shape_precip = NULL,
-  scale_precip = NULL,
-  mu_temp = NULL,
-  sd_temp = NULL,
+  temp_function = "qnorm",
+  temp_parameters = list(mean = 20, sd = 5),
+  prec_function = "qweibull",
+  prec_parameters = list(shape = 2, scale = 10),
   seed = NULL
 )
 ```
@@ -47,24 +53,23 @@ ecdf_nonnormal_niche(
 
   Integer; size of reference population for "true" parameters.
 
-- shape_precip:
+- temp_function:
 
-  Numeric; shape of the Weibull Distribution to obtain precipitation
-  values.
+  Character; function used to model temperature values. One of: "qnorm"
+  or "qweibull".
 
-- scale_precip:
+- temp_parameters:
 
-  Numeric; scale of the Weibull Distribution to obtain precipitation
-  values.
+  List; list organizing parameters to pass to `temp_function`.
 
-- mu_temp:
+- prec_function:
 
-  Numeric; mean value to obtain normally distributed temperature values.
+  Character; function used to model precipitation values. One of:
+  "qnorm" or "qweibull".
 
-- sd_temp:
+- prec_parameters:
 
-  Numeric; standard deviation to obtain normally distributed temperature
-  values.
+  List; list organizing parameters to pass to `temp_function`.
 
 - seed:
 
