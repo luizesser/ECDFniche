@@ -11,5 +11,7 @@
   : Compare ECDF and Chi-square suitability under non-normal data
 - [`ecdf_theoretical_niche()`](https://luizesser.github.io/ECDFniche/reference/ecdf_theoretical_niche.md)
   : Niche analysis using ECDF and chi-squared
+- [`mahal.dist`](https://luizesser.github.io/ECDFniche/reference/mahal.dist.md)
+  : Mahalanobis Distance Classifier for Ecological Niche Modeling
 - [`run_ecdf_mahal_analysis()`](https://luizesser.github.io/ECDFniche/reference/run_ecdf_mahal_analysis.md)
   : Run full ECDF–Mahalanobis analysis

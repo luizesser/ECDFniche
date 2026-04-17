@@ -21,6 +21,10 @@ ecdf_nonnormal_niche(
   n_vals = c(20L, 50L, 100L, 200L, 500L),
   n_reps = 10L,
   N_ref = 1e+05,
+  shape_precip = NULL,
+  scale_precip = NULL,
+  mu_temp = NULL,
+  sd_temp = NULL,
   seed = NULL
 )
 ```
@@ -42,6 +46,25 @@ ecdf_nonnormal_niche(
 - N_ref:
 
   Integer; size of reference population for "true" parameters.
+
+- shape_precip:
+
+  Numeric; shape of the Weibull Distribution to obtain precipitation
+  values.
+
+- scale_precip:
+
+  Numeric; scale of the Weibull Distribution to obtain precipitation
+  values.
+
+- mu_temp:
+
+  Numeric; mean value to obtain normally distributed temperature values.
+
+- sd_temp:
+
+  Numeric; standard deviation to obtain normally distributed temperature
+  values.
 
 - seed:
 
