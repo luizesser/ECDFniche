@@ -109,7 +109,11 @@ nonnormal_res <- ecdf_nonnormal_niche(
   rho_vals = c(-0.7, -0.3, 0, 0.3, 0.7),
   n_vals   = c(20L, 50L, 100L, 200L, 500L),
   n_reps   = 10L,
-  N_ref    = 1e5
+  N_ref    = 1e5,
+  mu_temp = 20,
+  sd_temp = 5,
+  shape_precip = 2,
+  scale_precip = 10
 )
 ```
 

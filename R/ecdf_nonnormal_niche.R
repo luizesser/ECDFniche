@@ -9,6 +9,10 @@
 #' @param n_reps Integer; number of replicates.
 #' @param N_ref Integer; size of reference population for "true" parameters.
 #' @param seed Optional integer for reproducibility.
+#' @param mu_temp  Numeric; mean value to obtain normally distributed temperature values.
+#' @param sd_temp  Numeric; standard deviation to obtain normally distributed temperature values.
+#' @param shape_precip Numeric; shape of the Weibull Distribution to obtain precipitation values.
+#' @param scale_precip  Numeric; scale of the Weibull Distribution to obtain precipitation values.
 #'
 #' @description
 #' Script to run a simulation study to compare Chi-square vs. ECDF approaches
@@ -58,6 +62,10 @@ ecdf_nonnormal_niche <- function(
     n_vals   = c(20L, 50L, 100L, 200L, 500L),
     n_reps   = 10L,
     N_ref    = 1e5,
+    shape_precip = NULL,
+    scale_precip = NULL,
+    mu_temp = NULL,
+    sd_temp = NULL,
     seed     = NULL) {
 
   # Assertions
@@ -69,6 +77,11 @@ ecdf_nonnormal_niche <- function(
   assert_numeric_cli(N_ref, lower = 1L, null.ok = TRUE)
   assert_numeric_cli(seed, lower = 0, null.ok = TRUE)
 
+  assert_numeric_cli(mu_temp, len = 1, null.ok = TRUE)
+  assert_numeric_cli(sd_temp, len = 1, null.ok = TRUE)
+  assert_numeric_cli(shape_precip, len = 1, null.ok = TRUE)
+  assert_numeric_cli(scale_precip, len = 1, null.ok = TRUE)
+
   if (!is.null(seed)) {
     set.seed(seed)
   }
@@ -78,13 +91,12 @@ ecdf_nonnormal_niche <- function(
   # ------------------------------------------------------------------------------
   ## Marginals
   # Temperature ~ Normal(mean = 20, sd = 5)
-  mu_temp <- 20
-  sd_temp <- 5
+  mu_temp <- ifelse(is.null(mu_temp), 20, mu_temp)
+  sd_temp <- ifelse(is.null(sd_temp), 5,  sd_temp)
 
   # Precipitation ~ Weibull(shape = 2, scale = 10)
-  shape_precip <- 2
-  scale_precip <- 10
-
+  shape_precip <- ifelse(is.null(shape_precip), 2,  shape_precip)
+  scale_precip <- ifelse(is.null(scale_precip), 10, scale_precip)
 
   # ------------------------------------------------------------------------------
   # 2. Generate a huge reference sample to obtain the 'true' population parameters
