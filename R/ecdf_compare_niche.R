@@ -28,9 +28,9 @@
 #'
 #' @examples
 #' # Create ECDF-niche based on personalized options:
-#' n <- ecdf_compare_niche(p_vals = 1:5,
-#'                         n_vals = seq(20L, 500L, 20L),
-#'                         n_reps = 30L,
+#' n <- ecdf_compare_niche(p_vals = 1:3,
+#'                         n_vals = seq(50L, 500L, 50L),
+#'                         n_reps = 10L,
 #'                         seed = 1991)
 #'
 #' @importFrom stats rWishart mahalanobis cov pchisq ecdf cor cov2cor sd
