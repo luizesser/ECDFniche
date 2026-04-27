@@ -17,8 +17,6 @@
 #' @importFrom stats pchisq ecdf
 #' @import checkCLI
 #'
-#' @global .data
-#'
 #' @export
 create_distance_suitability_plot <- function(analysis_results) {
   # Assertions

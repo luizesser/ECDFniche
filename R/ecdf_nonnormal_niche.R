@@ -61,7 +61,7 @@
 #' @importFrom stats pnorm qnorm qweibull cov cov2cor mahalanobis pchisq ecdf cor
 #' @import checkCLI
 #'
-#' @global .data data
+#' @global data .data
 #'
 #' @export
 ecdf_nonnormal_niche <- function(

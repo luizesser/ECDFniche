@@ -34,7 +34,7 @@
 #' @importFrom stats pchisq ecdf cor mahalanobis cov
 #' @import checkCLI
 #'
-#' @global .data
+#' @global
 #'
 #' @export
 ecdf_theoretical_niche <- function(

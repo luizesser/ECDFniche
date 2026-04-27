@@ -41,7 +41,7 @@
 #'   label_both
 #' @import checkCLI
 #'
-#' @global .data
+#' @global cor
 #'
 #' @export
 ecdf_compare_niche <- function(
