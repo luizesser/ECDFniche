@@ -147,7 +147,7 @@ mahal.dist <- list(
 
   predict = function(modelFit, newdata, preProc = NULL, submodels = NULL) {
 
-    probs <- .mahal.dist$prob(modelFit, newdata)
+    probs <- mahal.dist$prob(modelFit, newdata)
 
     if (modelFit$abs) {
       pred <- ifelse(
