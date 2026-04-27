@@ -20,3 +20,7 @@ CRAN release: 2025-12-19
 
 - Users can define the type of distribution to model temperature and
   precipitation in ecdf_nonnormal_niche function.
+
+## ECDFniche 0.5
+
+- Correction regarding runnig mahal.dist into caret.

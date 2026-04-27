@@ -18,12 +18,12 @@
 
 Esser L, Baumgartner M, Bailly D, R. Lima M, Ré R (2026). *ECDFniche:
 Empirical Cumulative Distribution Function Niche Modeling Tools*. R
-package version 0.4, <https://luizesser.github.io/ECDFniche/>.
+package version 0.5, <https://luizesser.github.io/ECDFniche/>.
 
     @Manual{,
       title = {ECDFniche: Empirical Cumulative Distribution Function Niche Modeling Tools},
       author = {Luíz Fernando Esser and Matheus Baumgartner and Dayani Bailly and Marcos {R. Lima} and Reginaldo Ré},
       year = {2026},
-      note = {R package version 0.4},
+      note = {R package version 0.5},
       url = {https://luizesser.github.io/ECDFniche/},
     }
