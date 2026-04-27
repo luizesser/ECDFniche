@@ -18,6 +18,8 @@ CRAN release: 2025-12-19
 
 ## ECDFniche 0.4
 
+CRAN release: 2026-04-27
+
 - Users can define the type of distribution to model temperature and
   precipitation in ecdf_nonnormal_niche function.
 
