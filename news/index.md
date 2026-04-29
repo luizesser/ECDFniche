@@ -25,4 +25,6 @@ CRAN release: 2026-04-27
 
 ## ECDFniche 0.5
 
+CRAN release: 2026-04-27
+
 - Correction regarding runnig mahal.dist into caret.
