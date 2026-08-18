@@ -1,7 +1,7 @@
 Package: ECDFniche
 Type: Package
 Title: Empirical Cumulative Distribution Function Niche Modeling Tools
-Version: 0.5
+Version: 1.0
 Authors@R: c(
     person("Luíz Fernando", "Esser", , "luizesser@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-2982-7223")),
@@ -14,13 +14,13 @@ Authors@R: c(
     person("Reginaldo", "Ré", role = "aut",
            comment = c(ORCID = "0000-0001-6452-3466")))
 Description: Simulate ecological niche models using Mahalanobis distance, transform distances to 
-    suitability with 1 - empirical cumulative distribution function and 1 - chi-squared, and 
-    generate comparison figures.
+    suitability using the empirical cumulative distribution function (ECDF) and the chi-squared. 
+    Provides a way to reproduce the use of ECDF in other modeling environments as proposed in Esser 
+    et al. (2026) <doi:10.1016/j.ecolmodel.2026.111795>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet"))
-RoxygenNote: 7.3.3
 Depends: R (>= 4.1.0)
 Imports:
     checkCLI,
@@ -42,3 +42,4 @@ VignetteBuilder: knitr
 Config/roxyglobals/filename: generated-globals.R
 Config/roxyglobals/unique: TRUE
 URL: https://luizesser.github.io/ECDFniche/
+Config/roxygen2/version: 8.0.0

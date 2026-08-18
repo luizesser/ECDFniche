@@ -18,3 +18,7 @@
 # ECDFniche 0.5
 
 -   Correction regarding runnig mahal.dist into caret.
+
+# ECDFniche 1.0
+
+-   As the article for the package is now published, we've set the version to 1.0 and included the study info in citation()

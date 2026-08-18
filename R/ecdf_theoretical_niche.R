@@ -29,8 +29,7 @@
 #'                             seed = 123)
 #'
 #' @importFrom MASS mvrnorm
-#' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_colour_manual theme element_blank
-#'             ylim
+#' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_colour_manual theme element_blank ylim
 #' @importFrom stats pchisq ecdf cor mahalanobis cov
 #' @import checkCLI
 #'

@@ -1,0 +1,28 @@
+citHeader("To cite the 'chooseGCM' package in publications, please use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Distance metrics for ecological niche modeling: beyond a chi-squared correction",
+  author   = c(
+    person("Luíz Fernando", "Esser"),
+    person("Matheus", "Baumgartner"),
+    person("Dayani", "Bailly"),
+    person("Marcos Robalinho", "Lima"),
+    person("Reginaldo", "Ré")
+  ),
+  journal  = "Ecological Modelling",
+  volume   = "522",
+  pages    = "111795",
+  year     = "2026",
+  doi      = "10.1016/j.ecolmodel.2026.111795",
+  url      = "https://www.sciencedirect.com/science/article/pii/S0304380026003224",
+  issn     = "0304-3800",
+  keywords = "Species distribution modeling, Habitat suitability modeling, Empirical cumulative distribution function, Virtual Ecology, Presence-only, Environmental Suitability",
+  note     = "Available online 2026",
+  textVersion = paste(
+    "Esser, L.F., Baumgartner, M., Bailly, D., Lima, M.R., & Ré, R. (2026).",
+    "Distance metrics for ecological niche modeling: beyond a chi-squared correction.",
+    "Ecological Modelling, 522, 111795.",
+    "doi:10.1016/j.ecolmodel.2026.111795"
+  )
+)

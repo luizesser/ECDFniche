@@ -52,8 +52,7 @@
 #'                           seed     = 1991)
 #'
 #' @importFrom MASS mvrnorm
-#' @importFrom ggplot2 ggplot aes geom_point scale_color_manual geom_vline geom_histogram
-#'             theme_void theme element_rect labs facet_wrap theme_bw label_both xlim unit
+#' @importFrom ggplot2 ggplot aes geom_point scale_color_manual geom_vline geom_histogram theme_void theme element_rect labs facet_wrap theme_bw label_both xlim unit
 #' @importFrom ggpp geom_plot_npc
 #' @importFrom dplyr mutate group_by ungroup
 #' @importFrom tidyr nest

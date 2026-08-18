@@ -36,9 +36,7 @@
 #' @importFrom stats rWishart mahalanobis cov pchisq ecdf cor cov2cor sd
 #' @importFrom MASS mvrnorm
 #' @importFrom dplyr group_by summarise mutate ungroup sample_frac
-#' @importFrom ggplot2 ggplot geom_point geom_pointrange stat_function
-#'   facet_wrap labs theme_bw theme element_blank element_text scale_color_manual
-#'   label_both
+#' @importFrom ggplot2 ggplot geom_point geom_pointrange stat_function facet_wrap labs theme_bw theme element_blank element_text scale_color_manual label_both
 #' @import checkCLI
 #'
 #' @global cor
