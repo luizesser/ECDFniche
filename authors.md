@@ -16,14 +16,21 @@
 
 ## Citation
 
-Esser L, Baumgartner M, Bailly D, R. Lima M, Ré R (2026). *ECDFniche:
-Empirical Cumulative Distribution Function Niche Modeling Tools*. R
-package version 0.5, <https://luizesser.github.io/ECDFniche/>.
+Esser, L.F., Baumgartner, M., Bailly, D., Lima, M.R., & Ré, R. (2026).
+Distance metrics for ecological niche modeling: beyond a chi-squared
+correction. Ecological Modelling, 522, 111795.
+doi:10.1016/j.ecolmodel.2026.111795
 
-    @Manual{,
-      title = {ECDFniche: Empirical Cumulative Distribution Function Niche Modeling Tools},
-      author = {Luíz Fernando Esser and Matheus Baumgartner and Dayani Bailly and Marcos {R. Lima} and Reginaldo Ré},
+    @Article{,
+      title = {Distance metrics for ecological niche modeling: beyond a chi-squared correction},
+      author = {Luíz Fernando Esser and Matheus Baumgartner and Dayani Bailly and Marcos Robalinho Lima and Reginaldo Ré},
+      journal = {Ecological Modelling},
+      volume = {522},
+      pages = {111795},
       year = {2026},
-      note = {R package version 0.5},
-      url = {https://luizesser.github.io/ECDFniche/},
+      doi = {10.1016/j.ecolmodel.2026.111795},
+      url = {https://www.sciencedirect.com/science/article/pii/S0304380026003224},
+      issn = {0304-3800},
+      keywords = {Species distribution modeling, Habitat suitability modeling, Empirical cumulative distribution function, Virtual Ecology, Presence-only, Environmental Suitability},
+      note = {Available online 2026},
     }

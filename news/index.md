@@ -28,3 +28,8 @@ CRAN release: 2026-04-27
 CRAN release: 2026-04-27
 
 - Correction regarding runnig mahal.dist into caret.
+
+## ECDFniche 1.0
+
+- As the article for the package is now published, we’ve set the version
+  to 1.0 and included the study info in citation()

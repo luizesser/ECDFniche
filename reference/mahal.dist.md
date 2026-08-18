@@ -13,10 +13,6 @@ into suitability scores.
 mahal.dist
 ```
 
-## Format
-
-An object of class `list` of length 12.
-
 ## Details
 
 The model is trained using presence-only data to estimate the centroid
@@ -70,6 +66,7 @@ integration.
 
 This object can be supplied to `caret::train()` as a custom model:
 
+
     library(caret)
 
     model <- train(
@@ -80,6 +77,7 @@ This object can be supplied to `caret::train()` as a custom model:
     )
 
 You can also run only ECDF by adjusting the tuning grid:
+
 
     library(caret)
 

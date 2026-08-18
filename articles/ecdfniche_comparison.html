@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>ECDF and Mahalanobis Distance for Empirical Niche Modeling • ECDFniche</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ECDF and Mahalanobis Distance for Empirical Niche Modeling">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ECDFniche</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,12 +106,12 @@ and
 <code><a href="../reference/ecdf_compare_niche.html">ecdf_compare_niche()</a></code>:</p>
 <ol style="list-style-type: decimal">
 <li>Draws a fixed covariance matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 by sampling from a Wishart distribution with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p + 2</annotation></semantics></math>
 degrees of freedom and scale matrix set to zero with a diagonal of 1,
 ensuring a positive-definite covariance for that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p, n)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p, n)</annotation></semantics></math>
 combination.</li>
 <li>Generates 30 independent replicates of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -120,20 +120,20 @@ records from a
 normal distribution with mean vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>p</mi></msub><mo>=</mo><mn>𝟎</mn></mrow><annotation encoding="application/x-tex">\mu_p = \mathbf{0}</annotation></semantics></math>
 (interpreted as the environmental optimum) and covariance matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>.</li>
 <li>For each replicate, estimates the sample mean
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>r</mi></msub><annotation encoding="application/x-tex">\mu_r</annotation></semantics></math>
 and sample covariance
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Σ</mi><mi>r</mi></msub><annotation encoding="application/x-tex">\Sigma_r</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Σ</mi><mi>r</mi></msub><annotation encoding="application/x-tex">\Sigma_r</annotation></semantics></math>
 and computes the squared Mahalanobis distance
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>D</mi><mn>2</mn></msup><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>r</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>⊤</mi></msup><msubsup><mi>Σ</mi><mi>r</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>r</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>D</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>r</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mi>⊤</mi></msup><msubsup><mi mathvariant="normal">Σ</mi><mi>r</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>r</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 D^2 = (x - \mu_r)^\top \Sigma_r^{-1} (x - \mu_r).
 </annotation></semantics></math>
 </li>
 <li>Computes two suitability metrics for every record:
 <ul>
 <li><p>Theoretical chi-squared suitability:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><msup><mi>χ</mi><mn>2</mn></msup></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><msubsup><mi>χ</mi><mi>p</mi><mn>2</mn></msubsup></msub><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><msup><mi>χ</mi><mn>2</mn></msup></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><msubsup><mi>χ</mi><mi>p</mi><mn>2</mn></msubsup></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 S_{\chi^2} = 1 - F_{\chi^2_p}(D^2),
 </annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><msubsup><mi>χ</mi><mi>p</mi><mn>2</mn></msubsup></msub><annotation encoding="application/x-tex">F_{\chi^2_p}</annotation></semantics></math>
@@ -142,7 +142,7 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 degrees of freedom.</p></li>
 <li><p>Empirical ECDF-based suitability:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mtext mathvariant="normal">ECDF</mtext></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><mtext mathvariant="normal">ECDF</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mtext mathvariant="normal">ECDF</mtext></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><mtext mathvariant="normal">ECDF</mtext></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 S_{\text{ECDF}} = 1 - F_{\text{ECDF}}(D^2),
 </annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mtext mathvariant="normal">ECDF</mtext></msub><annotation encoding="application/x-tex">F_{\text{ECDF}}</annotation></semantics></math>
@@ -224,7 +224,7 @@ standard deviation 5 °C.</li>
 10 mm, representing skewed rainfall data.</li>
 <li>The dependence between the two variables is controlled by a
 correlation parameter
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mo>−</mo><mn>0.7</mn><mo>,</mo><mo>−</mo><mn>0.3</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0.3</mn><mo>,</mo><mn>0.7</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\rho \in \{-0.7, -0.3, 0, 0.3, 0.7\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>−</mi><mn>0.7</mn><mo>,</mo><mi>−</mi><mn>0.3</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0.3</mn><mo>,</mo><mn>0.7</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\rho \in \{-0.7, -0.3, 0, 0.3, 0.7\}</annotation></semantics></math>,
 reflecting negative to positive associations observed in climatological
 studies (e.g. Anderson et al. 2019).</li>
 </ul>
@@ -256,11 +256,11 @@ error.</li>
 <li>Calculates:
 <ul>
 <li>Chi-squared suitability
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><msup><mi>χ</mi><mn>2</mn></msup></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><msubsup><mi>χ</mi><mn>2</mn><mn>2</mn></msubsup></msub><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">S_{\chi^2} = 1 - F_{\chi^2_2}(D^2)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><msup><mi>χ</mi><mn>2</mn></msup></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><msubsup><mi>χ</mi><mn>2</mn><mn>2</mn></msubsup></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_{\chi^2} = 1 - F_{\chi^2_2}(D^2)</annotation></semantics></math>,
 which is theoretically “wrong” under non-normality but serves as the
 standard parametric benchmark.</li>
 <li>ECDF-based suitability
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mtext mathvariant="normal">ECDF</mtext></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><mtext mathvariant="normal">ECDF</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">S_{\text{ECDF}} = 1 - F_{\text{ECDF}}(D^2)</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mtext mathvariant="normal">ECDF</mtext></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>F</mi><mtext mathvariant="normal">ECDF</mtext></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>D</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_{\text{ECDF}} = 1 - F_{\text{ECDF}}(D^2)</annotation></semantics></math>.</li>
 </ul>
 </li>
 <li>Returns per-replicate correlations and observation-level data, plus
@@ -393,7 +393,7 @@ multivariate normality.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

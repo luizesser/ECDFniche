@@ -9,6 +9,7 @@ chi-squared distribution and the empirical cumulative distribution
 function (ECDF).
 
 ``` r
+
 library(ECDFniche)
 #> Registered S3 methods overwritten by 'ggpp':
 #>   method                  from   
@@ -24,11 +25,11 @@ simulates a multivariate normal “environmental space”, computes
 Mahalanobis distances for a sample of points, and then maps those
 distances to suitability using:
 
-- $1 - F_{\chi^{2}}\left( D^{2} \right)$ (theoretical chi-squared
-  transformation)
-- $1 - \text{ECDF}\left( D^{2} \right)$ (empirical transformation)
+- $`1 - F_{\chi^2}(D^2)`$ (theoretical chi-squared transformation)
+- $`1 - \text{ECDF}(D^2)`$ (empirical transformation)
 
 ``` r
+
 set.seed(3)
 res1 <- ecdf_theoretical_niche(n = 2)
 res1$corplot
@@ -47,6 +48,7 @@ The returned list contains:
 You can directly plot the correlation object:
 
 ``` r
+
 res1$corplot
 ```
 
@@ -62,6 +64,7 @@ for several dimensions (by default 1 to 5) and produces three figures
 analogous to those in the script.
 
 ``` r
+
 set.seed(3)
 full_res <- run_ecdf_mahal_analysis(dims = 1:5)
 ```
@@ -76,6 +79,7 @@ color representing different suitability definitions: the simulated
 suitability.
 
 ``` r
+
 full_res$figure1 |> plot()
 ```
 
@@ -88,6 +92,7 @@ the true niche and each distance-to-suitability transformation changes
 with sample size.
 
 ``` r
+
 full_res$figure2 |> plot()
 ```
 
@@ -100,6 +105,7 @@ y-axis, showing how niche records, chi-squared suitability, and ECDF
 suitability relate across different numbers of predictor variables.
 
 ``` r
+
 full_res$figure3 |> plot()
 ```
 
@@ -111,6 +117,7 @@ You can customize key aspects of the simulation by passing arguments to
 [`ecdf_theoretical_niche()`](https://luizesser.github.io/ECDFniche/reference/ecdf_theoretical_niche.md):
 
 ``` r
+
 res_custom <- ecdf_theoretical_niche(
 n = 3,
 n_population = 20000,
